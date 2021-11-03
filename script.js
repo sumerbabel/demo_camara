@@ -18,6 +18,7 @@
   const screenshotsContainer = document.querySelector("#screenshots");
   const canvas = document.querySelector("#canvas");
   const devicesSelect = document.querySelector("#devicesSelect");
+  const contenedorImagen = document.querySelector("#contenedorImagen");
 
   // video constraints
   const constraints = {
@@ -74,6 +75,12 @@
       canvas.getContext("2d").drawImage(imagen, 0, 0);
       img.src = canvas.toDataURL("image/png");
       screenshotsContainer.prepend(img);
+
+      const [file] = imagen.files
+      if (file) {
+        contenedorImagen.src = URL.createObjectURL(file)
+      }
+
     });
   
 
@@ -96,7 +103,7 @@
   // initialize
   async function initializeCamera() {
     stopVideoStream();
-    useFrontCamera=false;
+
     constraints.video.facingMode = useFrontCamera ? "user" : "environment";
 
     try {
