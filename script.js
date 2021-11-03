@@ -69,13 +69,7 @@
 
     // take screenshot
     btnScreenshot2.addEventListener("click", function () {
-      const img = document.createElement("img");
-      canvas.width = imagen.videoWidth;
-      canvas.height = imagen.videoHeight;
-      canvas.getContext("2d").drawImage(imagen, 0, 0);
-      img.src = canvas.toDataURL("image/png");
-      screenshotsContainer.prepend(img);
-
+    
       const [file] = imagen.files
       if (file) {
         contenedorImagen.src = URL.createObjectURL(file)
