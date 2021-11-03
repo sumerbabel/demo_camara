@@ -9,9 +9,11 @@
 
   // get page elements
   const video = document.querySelector("#video");
+  const imagen = document.querySelector("#inptselecionar");
   const btnPlay = document.querySelector("#btnPlay");
   const btnPause = document.querySelector("#btnPause");
   const btnScreenshot = document.querySelector("#btnScreenshot");
+  const btnScreenshot2 = document.querySelector("#btnScreenshot2");
   const btnChangeCamera = document.querySelector("#btnChangeCamera");
   const screenshotsContainer = document.querySelector("#screenshots");
   const canvas = document.querySelector("#canvas");
@@ -34,7 +36,7 @@
   };
 
   // use front face camera
-  let useFrontCamera = true;
+  let useFrontCamera = false;
 
   // current video stream
   let videoStream;
@@ -64,6 +66,17 @@
     screenshotsContainer.prepend(img);
   });
 
+    // take screenshot
+    btnScreenshot2.addEventListener("click", function () {
+      const img = document.createElement("img");
+      canvas.width = imagen.videoWidth;
+      canvas.height = imagen.videoHeight;
+      canvas.getContext("2d").drawImage(imagen, 0, 0);
+      img.src = canvas.toDataURL("image/png");
+      screenshotsContainer.prepend(img);
+    });
+  
+
   // switch camera
   btnChangeCamera.addEventListener("click", function () {
     useFrontCamera = !useFrontCamera;
@@ -83,6 +96,7 @@
   // initialize
   async function initializeCamera() {
     stopVideoStream();
+    useFrontCamera=false;
     constraints.video.facingMode = useFrontCamera ? "user" : "environment";
 
     try {
